@@ -11,7 +11,7 @@ class ClassBrowser(object):
         self.folders = None
         self.target = None
 
-    def get_dirs(self, location="c:\\TEMP"):
+    def get_dirs(self, location="S:\OBC"):
         self.location = path.normpath(location)
         self.logger.info('getting sub-dirs at {}'.format(self.location))
         self.folders = []
@@ -33,7 +33,7 @@ class ClassBrowser(object):
     def search(self, target):
         self.target = str(target).lower()
         for folder in self.folders:
-            if self.target in str(folder).lower():
+            if self.target.lower() in str(folder).lower():
                 print(folder)
 
 
