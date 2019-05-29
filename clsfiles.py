@@ -13,16 +13,20 @@ class ClassBrowser(object):
 
     def get_dirs(self, location="S:\OBC"):
         self.location = path.normpath(location)
+        if self.location[0] == "\\" and self.location [1] != "\\":
+            self.location = "\\" + self.location
+
+        #TODO: cannot read net work share folders
         self.logger.info('getting sub-dirs at {}'.format(self.location))
         self.folders = []
-
-        for root, directories, filenames in walk(self.location):
-            for directory in directories:
-                self.folders.append(path.join(root, directory))
-            for filename in filenames:
-                self.folders.append(path.join(root, filename))
-                # print(path.join(root, filename))
+        for root, dirs, files in walk(self.location):
+            for dir in dirs:
+                self.folders.append(path.join(root, dir))
+            print(self.folders)
+            for file in files:
+                self.folders.append(path.join(root, file))
                 pass
+
         self.logger.info('found {} folders at {}'.format(len(self.folders), self.location))
 
     def show_dirs(self):
