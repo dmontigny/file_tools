@@ -17,24 +17,35 @@ class ClassBrowser(object):
             self.location = "\\" + self.location
 
         #TODO: cannot read net work share folders
-        self.logger.info('getting sub-dirs at {}'.format(self.location))
+        self.logger.info(f'getting sub-dirs at {self.location}')
         self.folders = []
         for root, dirs, files in walk(self.location):
             for dir in dirs:
                 self.folders.append(path.join(root, dir))
-            print(self.folders)
+            # print(self.folders)
             for file in files:
                 self.folders.append(path.join(root, file))
                 pass
 
-        self.logger.info('found {} folders at {}'.format(len(self.folders), self.location))
+        self.logger.info(f'found {len(self.folders)} folders at {self.location}')
 
     def show_dirs(self):
         self.logger.info('showing sub-dirs at {}'.format(self.location))
         for folder in self.folders:
             self.logger.debug(folder)
+            # try:
+            #     self.logger.debug(folder)
+            # except UnicodeEncodeError as err:
+            #     self.logger.error(err)
+            #     self.logger.error(f"value: {folder}")
+            # except Exception as err:
+            #     self.logger.error("unknown error:")
+            #     self.logger.error(err)
+            #     self.logger.error(f"value: {folder}")
+
 
     def search(self, target):
+        self.logger.info(f'searching for {str(target).lower()}')
         self.target = str(target).lower()
         for folder in self.folders:
             if self.target.lower() in str(folder).lower():
@@ -51,7 +62,7 @@ class ClassBrowser(object):
         self.logger.setLevel(logging.DEBUG)
 
         # Create the Handler for logging data to a file
-        logger_handler = logging.FileHandler(self.logname)
+        logger_handler = logging.FileHandler(self.logname, 'w', 'utf-8')
         logger_handler.setLevel(logging.DEBUG)
 
         # Create a Formatter for formatting the log messages
