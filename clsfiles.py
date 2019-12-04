@@ -1,7 +1,11 @@
 
 
-import logging, sys
+import logging
+import sys
 from os import path, remove, walk
+from os import listdir
+from os.path import isfile, join
+
 
 class ClassBrowser(object):
     def __init__(self):
@@ -9,6 +13,7 @@ class ClassBrowser(object):
         self.logger = None
         self.location = None
         self.folders = None
+        self.files = None
         self.target = None
 
     def get_dirs(self, location="S:\OBC"):
@@ -16,13 +21,12 @@ class ClassBrowser(object):
         if self.location[0] == "\\" and self.location [1] != "\\":
             self.location = "\\" + self.location
 
-        #TODO: cannot read net work share folders
+        # TODO: cannot read net work share folders
         self.logger.info(f'getting sub-dirs at {self.location}')
         self.folders = []
         for root, dirs, files in walk(self.location):
-            for dir in dirs:
-                self.folders.append(path.join(root, dir))
-            # print(self.folders)
+            for loc in dirs:
+                self.folders.append(path.join(root, loc))
             for file in files:
                 self.folders.append(path.join(root, file))
                 pass
@@ -33,24 +37,25 @@ class ClassBrowser(object):
         self.logger.info('showing sub-dirs at {}'.format(self.location))
         for folder in self.folders:
             self.logger.debug(folder)
-            # try:
-            #     self.logger.debug(folder)
-            # except UnicodeEncodeError as err:
-            #     self.logger.error(err)
-            #     self.logger.error(f"value: {folder}")
-            # except Exception as err:
-            #     self.logger.error("unknown error:")
-            #     self.logger.error(err)
-            #     self.logger.error(f"value: {folder}")
 
-
-    def search(self, target):
-        self.logger.info(f'searching for {str(target).lower()}')
-        self.target = str(target).lower()
+    def search_4_text(self, target_ext, target_text):
+        self.logger.info(f'searching for {str(target_text).lower()}')
+        self.target_ext = str(target_ext).lower()
+        self.target_text = str(target_text).lower()
         for folder in self.folders:
-            if self.target.lower() in str(folder).lower():
+            for file in self.files:
                 print(folder)
+                if self.target_ext in str(file).lower():
+                    f = open(self.target_.lower(), "r")
+                    for line in f:
+                        print(line)
 
+    def search_4_files(self, target_file):
+        self.logger.info(f'searching for {str(target_file).lower()}')
+        self.target_file = str(target_file).lower()
+        for folder in self.folders:
+            if self.target_file() in str(folder).lower():
+                print(folder)
 
     def configure_logger(self):
         # If applicable, delete the existing log file as it is overwritten each time

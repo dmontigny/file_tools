@@ -1,0 +1,10 @@
+1553 BC Error Injection Test
+1553 Throughput Test
+AutoScrub Test
+DMA Test
+EEPROM Full Test
+Limited IO Screening Tests
+G3 Reg Test
+Timer Test
+UART Test
+WD Timer Test

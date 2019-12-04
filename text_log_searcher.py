@@ -8,18 +8,18 @@ while True:
     path = input("\n\nEnter path to search (NULL to quit): ")
     if not path:
         break
-    target = input('Enter search target (NULL to quit): ')
+    target = input('Enter search target file extension (log) (NULL to quit): ')
+    if not target:
+        break
+    target_text = input('Enter search target text (case insensitive) (NULL to quit): ')
     if not target:
         break
 
     start = time.time()
     browser.get_dirs(path)
-    # browser.get_dirs("\\\\steds\DDP")
-    # browser.get_dirs("p:\\Test")
-    # browser.get_dirs("\\\\fl51s02\\Advanced Systems\\Program Folders\DDP")
-    # browser.get_dirs("\\\\fl51s02\\GPS_III\\OBC\\11.0_Technical\\Test\\TestResults\\OBC\\KARI")
+
     if target:
-        browser.search(target)
+        browser.search_4_text(target, target_text)
     end = time.time()
     print('elapsed time = ', end - start)
     browser.show_dirs()
