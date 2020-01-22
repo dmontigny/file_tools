@@ -5,10 +5,10 @@ browser = ClassBrowser()
 browser.configure_logger()
 
 while True:
-    path = input("\n\nEnter path to search (NULL to quit): ")
+    path = input("\n\nEnter path to search (NULL to quit): ").lower()
     if not path:
         break
-    target = input('Enter search target (NULL to quit): ')
+    target = input('Enter search target (NULL to quit): ').lower()
     if not target:
         break
 
@@ -19,7 +19,7 @@ while True:
         browser.search_4_files(target)
     end = time.time()
     print('elapsed time = ', end - start)
-    browser.show_dirs()
+    # browser.show_dirs()
 
 
 
